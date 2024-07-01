@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="game")
+@Table(name="games")
 public class Game {
     @Column(name="game_id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer game_id;
 
     @Column(name="name")
@@ -19,7 +19,7 @@ public class Game {
     private Integer rating;
 
     @Column(name="players")
-    private  Integer players;
+    private Integer players;
 
     @Column(name="online")
     private Boolean online;
