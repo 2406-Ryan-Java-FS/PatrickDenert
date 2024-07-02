@@ -34,18 +34,22 @@ public class GameController {
 
     @PostMapping("/games")
     public ResponseEntity<Game> createGame(@RequestBody Game game){         //create new game from requestbody
-        if (game.getName() == null) {                                       //check if name is blank
-            return null;
+        if (game.getName().isEmpty()) {                                     //check if name is blank
+            return ResponseEntity.status(400).body(null);                   //return bad request if name is blank
+        } else if(gs.getGameByName(game.getName()) != null){
+            return ResponseEntity.status(409).body(null);
+        } else{
+            return  ResponseEntity.status(200).body(gs.createGame(game));       //save game in db if pass checks
         }
-        return  ResponseEntity.status(200).body(gs.createGame(game));       //save game in db if pass checks
+
     }
 
     @PatchMapping("/games/{id}")
     public ResponseEntity<Game> updateGame(@RequestBody Game game, @PathVariable int id){       //update game rating
         Game updatedGame = gs.getGameById(id);                                  //get existing game from db
 
-        if(updatedGame == null){                                                //check if game exists
-            return null;
+        if(updatedGame == null){
+            return ResponseEntity.status(400).body(null);                       //return bad request if game doesnt exist
         }
 
         updatedGame.setRating(game.getRating());                                //update game rating

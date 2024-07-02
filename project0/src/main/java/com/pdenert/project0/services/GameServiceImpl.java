@@ -27,6 +27,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Game getGameByName(String name){
+        return gr.findGameByName(name);
+    }
+
+    @Override
     public Game createGame(Game game) {                         //save new game in db
         return gr.save(game);
     }
