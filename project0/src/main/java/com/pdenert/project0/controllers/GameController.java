@@ -63,7 +63,7 @@ public class GameController {
     public ResponseEntity<Integer> deleteGame(@PathVariable int id){            //delete game from db
         Game deletedGame = gs.getGameById(id);
 
-        if(deletedGame == null){
+        if(deletedGame.getGame_id() == null){
             return ResponseEntity.status(400).body(null);                       //return bad req if game doesnt exist
         }
 
