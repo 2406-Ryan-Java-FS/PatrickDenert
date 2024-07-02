@@ -20,8 +20,14 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user){
-        User u = us.createUser(user);
-        return ResponseEntity.status(200).body(u);
+        if(user.getUsername().isEmpty() || user.getPassword().isEmpty()){       // return 400 error if user does not give username or password
+            return ResponseEntity.status(400).body(null);
+        } else if(us.getUser(user.getUsername()) != null){
+            return ResponseEntity.status(409).body(null);                               //return conflict errror is username is taken
+        } else {
+            User u = us.createUser(user);
+            return ResponseEntity.status(200).body(u);
+        }
     }
 
     @PostMapping("/login")
