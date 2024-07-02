@@ -50,4 +50,10 @@ public class GameController {
 
         return gs.updateGame(updatedGame);                                      //save updates into db
     }
+
+    @DeleteMapping("/games/{id}")
+    public int deleteGame(@PathVariable int id){                                //delete game from db
+        gs.deleteGame(id);
+        return id;                                                              //return id if deleted
+    }
 }

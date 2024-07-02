@@ -35,4 +35,9 @@ public class GameServiceImpl implements GameService {
     public Game updateGame(Game game) {                         // update game in db
         return gr.save(game);
     }
+
+    @Override
+    public void deleteGame(int id){
+        gr.deleteById(id);
+    }
 }
