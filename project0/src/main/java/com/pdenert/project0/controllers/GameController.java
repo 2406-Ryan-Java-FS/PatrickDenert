@@ -1,6 +1,7 @@
 package com.pdenert.project0.controllers;
 
 import com.pdenert.project0.models.Game;
+import com.pdenert.project0.models.User;
 import com.pdenert.project0.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,4 +58,5 @@ public class GameController {
         gs.deleteGame(id);
         return ResponseEntity.status(200).body(id);                             //return id if deleted
     }
+
 }
