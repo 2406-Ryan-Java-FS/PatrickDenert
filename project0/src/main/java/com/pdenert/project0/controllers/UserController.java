@@ -35,9 +35,13 @@ public class UserController {
         User u = us.getUser(user.getUsername());
 
         if(u==null){
-            return null;
+            return ResponseEntity.status(401).body(null);                               //return unauth if user not exist
+        } else if(!u.getPassword().equals(user.getPassword())){
+            return ResponseEntity.status(401).body(null);                               //return unauth if password incorrect
+        } else{
+            return ResponseEntity.status(200).body(u);                                  //return user from db if auth pass
         }
 
-        return ResponseEntity.status(200).body(u);
+
     }
 }
