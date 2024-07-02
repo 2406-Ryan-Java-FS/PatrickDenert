@@ -45,20 +45,28 @@ public class GameController {
     }
 
     @PatchMapping("/games/{id}")
-    public ResponseEntity<Game> updateGame(@RequestBody Game game, @PathVariable int id){       //update game rating
+    public ResponseEntity<Game> updateGame(@RequestBody Game game, @PathVariable int id) {       //update game rating
         Game updatedGame = gs.getGameById(id);                                  //get existing game from db
 
-        if(updatedGame == null){
+        if (updatedGame.getName()==null) {
             return ResponseEntity.status(400).body(null);                       //return bad request if game doesnt exist
+        } else if (!updatedGame.getName().equals(game.getName())) {
+            return ResponseEntity.status(409).body(null);                       //return conflict if editing wrong game
+        } else {
+            updatedGame.setRating(game.getRating());                                //update game rating
+            return ResponseEntity.status(200).body(gs.updateGame(updatedGame));     //save updates into db
         }
-
-        updatedGame.setRating(game.getRating());                                //update game rating
-
-        return ResponseEntity.status(200).body(gs.updateGame(updatedGame));     //save updates into db
     }
+
 
     @DeleteMapping("/games/{id}")
     public ResponseEntity<Integer> deleteGame(@PathVariable int id){            //delete game from db
+        Game deletedGame = gs.getGameById(id);
+
+        if(deletedGame == null){
+            return ResponseEntity.status(400).body(null);                       //return bad req if game doesnt exist
+        }
+
         gs.deleteGame(id);
         return ResponseEntity.status(200).body(id);                             //return id if deleted
     }
