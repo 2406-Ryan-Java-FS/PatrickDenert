@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService {
         User u = ur.findUserByUsername(name);
         return u;
     }
+
+    @Override
+    public User createUser(User user){
+        return ur.save(user);
+    }
 }

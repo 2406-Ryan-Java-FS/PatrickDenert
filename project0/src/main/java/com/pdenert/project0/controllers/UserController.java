@@ -18,6 +18,12 @@ public class UserController {
         this.us = us;
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user){
+        User u = us.createUser(user);
+        return ResponseEntity.status(200).body(u);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user){
         User u = us.getUser(user.getUsername());
