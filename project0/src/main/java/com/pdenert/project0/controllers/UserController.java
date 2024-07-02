@@ -1,12 +1,13 @@
 package com.pdenert.project0.controllers;
 
+import com.pdenert.project0.models.Game;
 import com.pdenert.project0.models.User;
 import com.pdenert.project0.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -42,6 +43,17 @@ public class UserController {
             return ResponseEntity.status(200).body(u);                                  //return user from db if auth pass
         }
 
+    }
 
+    @GetMapping("/users/{id}/games")
+    public ResponseEntity<List<String>> getGameByUser(@PathVariable int id){            //return list of games belonging to user
+        return ResponseEntity.status(200).body(us.getGameByUser(id));
+    }
+
+    @PostMapping("/users/{game_id}")
+    public ResponseEntity<String> addGameToUser(@PathVariable int game_id, @RequestBody User user){
+        User u = us.getUser(user.getUsername());                                        //get user from db
+        us.addGame(game_id,u.getUser_id());                                             //add game to user
+        return ResponseEntity.status(200).body("Game added to user");
     }
 }

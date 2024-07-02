@@ -61,14 +61,14 @@ public class GameController {
 
     @DeleteMapping("/games/{id}")
     public ResponseEntity<Integer> deleteGame(@PathVariable int id){            //delete game from db
-        Game deletedGame = gs.getGameById(id);
+        Game deletedGame = gs.getGameById(id);                                  //check if id exists in db
 
         if(deletedGame.getGame_id() == null){
             return ResponseEntity.status(400).body(null);                       //return bad req if game doesnt exist
         }
 
         gs.deleteGame(id);
-        return ResponseEntity.status(200).body(id);                             //return id if deleted
+        return ResponseEntity.status(204).body(null);                             //return no content if succesful
     }
 
 }
