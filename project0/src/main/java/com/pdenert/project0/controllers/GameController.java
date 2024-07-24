@@ -1,15 +1,10 @@
 package com.pdenert.project0.controllers;
 
 import com.pdenert.project0.models.Game;
-<<<<<<< HEAD
-import com.pdenert.project0.services.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.pdenert.project0.models.User;
 import com.pdenert.project0.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
->>>>>>> e65732ab0c99ded4ae269fd1f481ff0248108c70
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,39 +21,6 @@ public class GameController {
     }
 
     @GetMapping("/games")
-<<<<<<< HEAD
-    public List<Game> getAllGames() {                       //return list of all games in db
-        return gs.getAllGames();
-    }
-
-    @GetMapping("/games/{id}")
-    public Game getGameById(@PathVariable int id){          //return game with correct id
-        // game = gs.getGameById(id);
-        //return game.orElseGet(Game::new);
-        return gs.getGameById(id);
-    }
-
-    @PostMapping("/games")
-    public Game createGame(@RequestBody Game game){         //create new game from requestbody
-        if (game.getName() == null) {                       //check if name is blank
-            return null;
-        }
-        return gs.createGame(game);                         //save game in db if pass checks
-    }
-
-    @PatchMapping("/games/{id}")
-    public Game updateGame(@RequestBody Game game, @PathVariable int id){       //update game rating
-        Game updatedGame = gs.getGameById(id);                                  //get existing game from db
-
-        if(updatedGame == null){                                                //check if game exists
-            return null;
-        }
-
-        updatedGame.setRating(game.getRating());                                //update game rating
-
-        return gs.updateGame(updatedGame);                                      //save updates into db
-    }
-=======
     public ResponseEntity<List<Game>> getAllGames() {                       //return list of all games in db
         return ResponseEntity.status(200).body(gs.getAllGames());
     }
@@ -109,5 +71,4 @@ public class GameController {
         return ResponseEntity.status(204).body(null);                             //return no content if succesful
     }
 
->>>>>>> e65732ab0c99ded4ae269fd1f481ff0248108c70
 }
