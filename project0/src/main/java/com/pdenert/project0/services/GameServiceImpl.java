@@ -27,6 +27,14 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public Game getGameByName(String name){
+        return gr.findGameByName(name);
+    }
+
+    @Override
+>>>>>>> e65732ab0c99ded4ae269fd1f481ff0248108c70
     public Game createGame(Game game) {                         //save new game in db
         return gr.save(game);
     }
@@ -35,4 +43,12 @@ public class GameServiceImpl implements GameService {
     public Game updateGame(Game game) {                         // update game in db
         return gr.save(game);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void deleteGame(int id){
+        gr.deleteById(id);
+    }
+>>>>>>> e65732ab0c99ded4ae269fd1f481ff0248108c70
 }
